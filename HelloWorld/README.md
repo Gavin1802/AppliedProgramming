@@ -4,9 +4,10 @@ The simple software found in this folder is a basic Hello World message in a jso
 
 I have created this software a header and declaration of this project, showing the beginning of a learning journey.
 
-[Software Demo Video]()
+[Software Demo Video](https://youtu.be/EJQtRSimN1s)
 
 ## Development Environment
+
 To recreate the development environment, you need the following software and/or libraries with the specified versions:
 
 To develop this code, I used the Visual Studio Code IDE, with a python and json file.
