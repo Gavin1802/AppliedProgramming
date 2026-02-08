@@ -1,16 +1,19 @@
 import socket
 import os
 
-HOST = '127.0.0.1'
+# Configuration
+HOST = '0.0.0.0'  # Listen on all interfaces
 PORT = 65432
 SERVER_FOLDER = 'server_data'
 
+# Ensure storage folder
 if not os.path.exists(SERVER_FOLDER):
     os.makedirs(SERVER_FOLDER)
 
 
 def receive_file(conn, filename):
-    # (Same as Phase 3 - keep this logic!)
+    """Handles file uploads."""
+    # Acknowledge and get size
     conn.sendall(b"READY_FOR_SIZE")
     file_size = int(conn.recv(1024).decode('utf-8'))
     conn.sendall(b"READY_FOR_DATA")
@@ -18,6 +21,7 @@ def receive_file(conn, filename):
     filepath = os.path.join(SERVER_FOLDER, filename)
     received_bytes = 0
 
+    # Receive exact bytes
     with open(filepath, 'wb') as f:
         while received_bytes < file_size:
             chunk = conn.recv(1024)
@@ -30,22 +34,24 @@ def receive_file(conn, filename):
 
 
 def send_file_to_client(conn, filename):
+    """Handles file downloads."""
     filepath = os.path.join(SERVER_FOLDER, filename)
 
+    # Check existence
     if not os.path.exists(filepath):
         conn.sendall(b"ERROR_NO_FILE")
         return
 
-    # 1. Notify client file exists and send size
+    # Send existence and size
     file_size = os.path.getsize(filepath)
     conn.sendall(f"EXISTS {file_size}".encode('utf-8'))
 
-    # 2. Wait for client to say they are ready
+    # Wait for client
     response = conn.recv(1024)
     if response.decode('utf-8') != 'OK_SEND_IT':
         return
 
-    # 3. Stream the file
+    # Stream file
     print(f"Sending {filename} to client...")
     with open(filepath, 'rb') as f:
         while True:
@@ -57,22 +63,27 @@ def send_file_to_client(conn, filename):
 
 
 print("--- Vault Server Running (Phase 4) ---")
-# ... Main setup ...
+# Start server
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
     print(f"Listening on {HOST}:{PORT}...")
 
+    # Accept connection
     conn, addr = s.accept()
     with conn:
         print(f"Connected by {addr}")
+
+        # Main loop
         while True:
             data = conn.recv(1024)
             if not data: break
 
+            # Parse command
             parts = data.decode('utf-8').strip().split(' ')
             cmd = parts[0].upper()
 
+            # Execute command
             if cmd == 'SAVE':
                 receive_file(conn, parts[1])
             elif cmd == 'READ':

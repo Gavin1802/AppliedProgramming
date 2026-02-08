@@ -1,42 +1,51 @@
 import socket
 import os
 
-HOST = '127.0.0.1'
+# Configuration
+HOST = '127.0.0.1'  # Localhost (VM forwarding)
 PORT = 65432
 CLIENT_FOLDER = 'client_data'
 
+# Ensure storage folder
 if not os.path.exists(CLIENT_FOLDER):
     os.makedirs(CLIENT_FOLDER)
 
 
 def send_file(s, filename):
-    # (Same as Phase 3 - keep this logic!)
+    """Uploads file to server."""
     filepath = os.path.join(CLIENT_FOLDER, filename)
+
+    # Verify local file exists
     if not os.path.exists(filepath):
         print("File not found.")
         return
 
+    # Send SAVE command
     s.sendall(f"SAVE {filename}".encode('utf-8'))
     s.recv(1024)  # Wait for READY
 
+    # Send file size
     file_size = os.path.getsize(filepath)
     s.sendall(str(file_size).encode('utf-8'))
     s.recv(1024)  # Wait for READY
 
+    # Stream file chunks
     with open(filepath, 'rb') as f:
         while True:
             chunk = f.read(1024)
             if not chunk: break
             s.sendall(chunk)
 
+    # Wait for confirmation
     print(f"Server: {s.recv(1024).decode('utf-8')}")
 
 
 def download_file(s, filename):
-    # 1. Send Request
+    """Downloads file from server."""
+    # Send READ command
     s.sendall(f"READ {filename}".encode('utf-8'))
 
-    # 2. Check Server Response
+    # Check server response
     response = s.recv(1024).decode('utf-8')
 
     if response == "ERROR_NO_FILE":
@@ -44,14 +53,14 @@ def download_file(s, filename):
         return
 
     if response.startswith("EXISTS"):
-        # Parse size from "EXISTS 1024"
+        # Parse file size
         _, size_str = response.split(' ')
         file_size = int(size_str)
 
-        # 3. Tell server we are ready
+        # Request stream start
         s.sendall(b"OK_SEND_IT")
 
-        # 4. Receive Data
+        # Write incoming chunks
         filepath = os.path.join(CLIENT_FOLDER, f"downloaded_{filename}")
         received = 0
         print(f"Downloading {filename} ({file_size} bytes)...")
@@ -67,9 +76,11 @@ def download_file(s, filename):
 
 
 print("--- Client Running (Phase 4) ---")
-# ... Main setup ...
+# Connect to server
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
+
+    # Command loop
     while True:
         u_in = input("Vault> ").strip()
         parts = u_in.split(' ')
