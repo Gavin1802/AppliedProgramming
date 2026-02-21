@@ -5,6 +5,18 @@ This dataset includes valuable information about college specializations, person
 of which are used in this program. Using Python and the Pandas library, we can analyze the data to answer 
 critical questions, filter, sort, and aggregate the data, and visualize some of the findings. 
 
+The three questions I asked are:
+1. Which engineering specializations yield the highest average starting salaries?
+	- Aggregate & Sort
+
+2. Does high "Conscientiousness" and "Extraversion" correlate with a higher average salary compared to introverted/less conscientious graduates?
+	- Filter, then Aggregate
+
+3. How does the average salary compare between male and female graduates specifically within the top 3 most popular engineering specializations?
+	- Filter, Group, then Sort
+
+I listed beneath each the requirements they fulfill from the module. You will see the findings answered in the video linked below.
+
 ## Instructions for Build and Use
 
 [Software Demo](https://youtu.be/ulqfIUYgtEQ)
