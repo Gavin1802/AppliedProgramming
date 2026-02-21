@@ -1,1 +1,61 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on shared package cache
+   0.010615100s  INFO prepare_target{force=false package_id=my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app) target="my_rust_app"}: cargo::core::compiler::fingerprint: fingerprint error for my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app)/Check { test: false }/TargetInner { name: "my_rust_app", doc: true, ..: with_path("C:\\Users\\gavin\\OneDrive\\Documents\\GitHub\\AppliedProgramming\\my_rust_app\\src\\main.rs", Edition2024) }
+   0.010641600s  INFO prepare_target{force=false package_id=my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app) target="my_rust_app"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app\target\debug\.fingerprint\my_rust_app-bbe8fccc3e32ffc5\bin-my_rust_app`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.018069100s  INFO prepare_target{force=false package_id=my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app) target="my_rust_app"}: cargo::core::compiler::fingerprint: fingerprint error for my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app)/Check { test: true }/TargetInner { name: "my_rust_app", doc: true, ..: with_path("C:\\Users\\gavin\\OneDrive\\Documents\\GitHub\\AppliedProgramming\\my_rust_app\\src\\main.rs", Edition2024) }
+   0.018081400s  INFO prepare_target{force=false package_id=my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app) target="my_rust_app"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app\target\debug\.fingerprint\my_rust_app-99346c78cabe51af\test-bin-my_rust_app`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+    Checking my_rust_app v0.1.0 (C:\Users\gavin\OneDrive\Documents\GitHub\AppliedProgramming\my_rust_app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
